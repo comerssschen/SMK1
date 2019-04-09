@@ -23,11 +23,12 @@ public class CarAdapter extends BaseQuickAdapter<MenusBean, BaseViewHolder> {
         helper.setText(R.id.tv_num_item, "* " + info.getCount());
         helper.setText(R.id.tv_money_item, info.getMoney());
 
-        if (ObjectUtils.isEmpty(info.getImgId())) {
-            helper.setImageResource(R.id.iv_icon_item, R.drawable.product_default);
+        if (ObjectUtils.isEmpty(info.getImgUrl())) {
+            helper.setImageResource(R.id.iv_icon_item, info.getImgId());
         } else {
             helper.setImageBitmap(R.id.iv_icon_item, ImageUtil.getDiskBitmap(info.getImgUrl()));
         }
+        helper.addOnClickListener(R.id.tv_edit_item);
 
     }
 }

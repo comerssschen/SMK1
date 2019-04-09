@@ -57,6 +57,7 @@ public class StartActivity extends BaseActivity {
                     public void confirm(String msg) {
                         ToastUtils.showShort("会员登录成功！");
                         startActivity(msg);
+                        keyBoardDialogView.dismiss();
                     }
                 });
                 break;

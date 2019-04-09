@@ -62,7 +62,7 @@ public class SucessActivity extends BaseActivity {
         tvTotalCount.setText("共" + totalCount + "件商品");
         boolean isRealDeal = (boolean) SharePreferenceUtil.getParam(SucessActivity.this, PayModeSettingFragment.IS_REAL_DEAL, PayModeSettingFragment.default_isRealDeal);
         if (isRealDeal) {
-            PayMoney = "price";
+            PayMoney = price + "";
         } else {
             PayMoney = "0.01";
         }
@@ -72,7 +72,7 @@ public class SucessActivity extends BaseActivity {
         helper.setOnFinishListener(new CountDownHelper.OnFinishListener() {
             @Override
             public void fin() {
-//                finish();
+                finish();
             }
         });
         helper.start();

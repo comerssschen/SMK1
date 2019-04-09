@@ -13,6 +13,7 @@ import com.weipan.smk1.util.ResourcesUtils;
 import com.weipan.smk1.util.SharePreferenceUtil;
 import com.weipan.smk1.util.Utils;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class KPrinterPresenter {
     private ExtPrinterService mPrinter;
     String unic = "GBK";
     private String PayMoney;
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public KPrinterPresenter(Context context, ExtPrinterService printerService) {
         this.context = context;
@@ -136,7 +138,7 @@ public class KPrinterPresenter {
 
         boolean isRealDeal = (boolean) SharePreferenceUtil.getParam(context, PayModeSettingFragment.IS_REAL_DEAL, PayModeSettingFragment.default_isRealDeal);
         if (isRealDeal) {
-            PayMoney = "" + price;
+            PayMoney = "" + decimalFormat.format(price);
         } else {
             PayMoney = "0.01";
         }
@@ -178,7 +180,7 @@ public class KPrinterPresenter {
         blank2 = width * 2 - String_length(real);
         sb.append(total);
         sb.append(addblank(blank1));
-        sb.append(price);
+        sb.append(decimalFormat.format(price));
         mPrinter.printText(sb.toString() + "");
         mPrinter.flush();
 

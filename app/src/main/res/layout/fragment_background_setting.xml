@@ -36,8 +36,7 @@
         android:layout_weight="1"
         android:background="#ffe8edef"
         android:orientation="vertical"
-        android:paddingHorizontal="10dp"
-        >
+        android:paddingHorizontal="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -179,6 +178,7 @@
 
         <com.weipan.smk1.view.CustomCarGoodsCounterView
             android:id="@+id/et_num"
+            android:background="#ffe8edef"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

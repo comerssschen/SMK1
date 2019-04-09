@@ -106,7 +106,7 @@ public class CustomCarGoodsCounterView extends FrameLayout implements View.OnCli
     }
 
     public void subNumber() {
-        mGoodsNumber = (mGoodsNumber - 1 < 1) ? 1 : mGoodsNumber - 1;
+        mGoodsNumber = (mGoodsNumber - 1 < 0) ? 0 : mGoodsNumber - 1;
     }
 
     /**
@@ -116,6 +116,11 @@ public class CustomCarGoodsCounterView extends FrameLayout implements View.OnCli
      */
     public int getGoodsNumber() {
         return mGoodsNumber;
+    }
+
+    public void setedit(boolean isEdit) {
+        etNumber.setFocusable(isEdit);
+        etNumber.setFocusableInTouchMode(isEdit);
     }
 
     public void setGoodsNumber(int goodsNumber) {

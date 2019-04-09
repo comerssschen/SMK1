@@ -58,6 +58,7 @@ import com.weipan.smk1.util.OkGoUtils;
 import com.weipan.smk1.util.ResourcesUtils;
 import com.weipan.smk1.util.SharePreferenceUtil;
 import com.weipan.smk1.view.CloseConfirmDialog;
+import com.weipan.smk1.view.EditGoodsDialog;
 import com.weipan.smk1.view.PayPopupWindow;
 import com.weipan.smk1.view.ScanQrCodeDialog;
 
@@ -87,7 +88,6 @@ public class MainActivity extends BaseActivity {
     private ArrayList<MenusBean> menus = new ArrayList<>();
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
     private CarAdapter mAdapter;
-    private List<GvBeans> mOthers;
     private boolean isRealDeal;
     private int totalCount = 0;
     private String totalMoney;
@@ -100,7 +100,6 @@ public class MainActivity extends BaseActivity {
     private Gson gson = new Gson();
     private CloseConfirmDialog closeConfirmDialog;
     private CountDownHelper helper;
-    private String TAG = "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +113,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == 30 && requestCode == 20) {
-
             finish();
         }
     }
@@ -124,7 +121,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        helper = new CountDownHelper(tvCancle, 10, 1);
+        helper = new CountDownHelper(tvCancle, 90, 1);
         helper.setOnFinishListener(new CountDownHelper.OnFinishListener() {
             @Override
             public void fin() {
@@ -160,7 +157,6 @@ public class MainActivity extends BaseActivity {
     private void init() {
         String memberNum = getIntent().getStringExtra("memberNum");
         tvMemberId.setText(memberNum);
-        mOthers = GoodsCode.getInstance().getDrinks();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         goodsRecyclerview.setLayoutManager(linearLayoutManager);
         mAdapter = new CarAdapter(R.layout.car_item);
@@ -168,7 +164,39 @@ public class MainActivity extends BaseActivity {
         mAdapter.setEmptyView(R.layout.emptyview, goodsRecyclerview);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mAdapter.setDuration(500);
-        mAdapter.isFirstOnly(false);
+        mAdapter.isFirstOnly(true);
+
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                MenusBean menusBean = menus.get(position);
+                EditGoodsDialog editGoodsDialog = new EditGoodsDialog(MainActivity.this);
+                editGoodsDialog.setcontent(menusBean.getName() + "*" + menusBean.getCount() + menusBean.getUnit());
+                editGoodsDialog.setNum(menus.get(position).getCount());
+                editGoodsDialog.show();
+                editGoodsDialog.setUpdateGoodsNumberListener(new EditGoodsDialog.UpdateGoodsNumberListener() {
+                    @Override
+                    public void updateGoodsNumber(int number) {
+                        if (number == 0) {
+                            mAdapter.remove(position);
+                            menus.remove(position);
+                            editGoodsDialog.dismiss();
+                        } else {
+                            menus.get(position).setCount(number);
+                            menus.get(position).setMoney(ResourcesUtils.getString(R.string.units_money) + decimalFormat.format(number * Float.parseFloat(menus.get(position).getUnitPrice().substring(1))));
+                            mAdapter.notifyItemChanged(position);
+
+//                            mAdapter.remove(position);
+//                            mAdapter.addData(position, menus.get(position));
+
+                        }
+                        updateView();
+
+                    }
+                });
+
+            }
+        });
 
         Intent intent = new Intent();
         intent.setPackage("com.sunmi.extprinterservice");
@@ -305,45 +333,32 @@ public class MainActivity extends BaseActivity {
             bean.setUnit(mOther.getUnit());
             bean.setUnitPrice(mOther.getPrice());
             bean.setCount(1);
-            addMenus(bean);
-//            buildMenuJson(menus);
+
+            boolean isExist = false;
+            int position = menus.size();
+            for (int i = 0; i < menus.size(); i++) {
+                if (ObjectUtils.equals(menus.get(i).getCode(), bean.getCode())) {
+                    isExist = true;
+                    position = i;
+                    menus.get(i).setCount(menus.get(i).getCount() + 1);
+                    menus.get(i).setMoney(ResourcesUtils.getString(R.string.units_money) + decimalFormat.format((Float.parseFloat(menus.get(i).getMoney().substring(1)) + Float.parseFloat(bean.getMoney().substring(1)))));
+                }
+            }
+            if (isExist) {
+//                mAdapter.remove(position);
+//                mAdapter.addData(position, menus.get(position));
+                mAdapter.notifyItemChanged(position);
+//                mAdapter.setData(position, menus.get(position));
+            } else {
+                menus.add(bean);
+                mAdapter.addData(position, bean);
+            }
+            updateView();
         }
     }
 
 
-    public void addMenus(MenusBean bean) {
-        boolean isExist = false;
-//        for (MenusBean menu : menus) {
-//            if (ObjectUtils.equals(menu.getCode(), bean.getCode())) {
-//                isExist = true;
-//                menu.setCount(menu.getCount() + 1);
-//                menu.setMoney(ResourcesUtils.getString(R.string.units_money) + decimalFormat.format((Float.parseFloat(menu.getMoney().substring(1)) + Float.parseFloat(bean.getMoney().substring(1)))));
-//            }
-//        }
-//        if (isExist) {
-//            mAdapter.notifyDataSetChanged();
-//        } else {
-//            menus.add(bean);
-//            mAdapter.setNewData(menus);
-//        }
-
-        int position = 0;
-        for (int i = 0; i < menus.size(); i++) {
-            if (ObjectUtils.equals(menus.get(i).getCode(), bean.getCode())) {
-                isExist = true;
-                position = i;
-                menus.get(i).setCount(menus.get(i).getCount() + 1);
-                menus.get(i).setMoney(ResourcesUtils.getString(R.string.units_money) + decimalFormat.format((Float.parseFloat(menus.get(i).getMoney().substring(1)) + Float.parseFloat(bean.getMoney().substring(1)))));
-            }
-        }
-        if (isExist) {
-            mAdapter.notifyItemChanged(position);
-        } else {
-            menus.add(bean);
-            mAdapter.setNewData(menus);
-//            mAdapter.notifyItemChanged(menus.size());
-        }
-
+    public void updateView() {
         float price = 0.00f;
         int count = 0;
         if (ObjectUtils.isEmpty(menus) && menus.size() == 0) {
@@ -380,8 +395,7 @@ public class MainActivity extends BaseActivity {
                 // 交易类型
                 request.transType = "00";
                 // 交易金额
-                Long amount = 1L;
-                request.amount = amount;
+                request.amount = Float.valueOf(Float.valueOf(realPayMoney) * 100).longValue();
                 // Saas软件订单号
 //                request.orderId = "123346546465";
                 // 商品信息
@@ -457,7 +471,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.bt_go_pay:
                 isRealDeal = (boolean) SharePreferenceUtil.getParam(MainActivity.this, PayModeSettingFragment.IS_REAL_DEAL, PayModeSettingFragment.default_isRealDeal);
-                if (!isRealDeal) {
+                if (isRealDeal) {
                     realPayMoney = totalMoney;
                 } else {
                     realPayMoney = "0.01";
@@ -474,7 +488,7 @@ public class MainActivity extends BaseActivity {
         arg.setCash_id("100112053");
         arg.setClient(1);
         arg.setRemark("刷脸支付");
-        arg.setTotal_fee("0.01"/*totalMoney*/);
+        arg.setTotal_fee(realPayMoney);
         OkGoUtils.getInstance().postNoGateWay(MainActivity.this, gson.toJson(arg), "/api/pay/barcodepay", new OnResponseListener() {
             @Override
             public void onResponse(String serverRetData) {
@@ -506,10 +520,9 @@ public class MainActivity extends BaseActivity {
             unregisterReceiver(resultReceiver);
         }
 
-        menus = new ArrayList<>();
+        menus = null;
         decimalFormat = new DecimalFormat("0.00");
         mAdapter = null;
-        mOthers = null;
         isRealDeal = false;
         totalCount = 0;
         totalMoney = null;
