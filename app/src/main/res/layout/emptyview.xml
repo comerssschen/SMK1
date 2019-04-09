@@ -16,11 +16,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="暂无商品" />
+        android:text="暂无商品"
+        android:textColor="@color/gray"
+        android:textSize="10sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="请逐一扫描商品条码" />
+        android:text="请逐一扫描商品条码"
+        android:textColor="@color/content_color"
+        android:textSize="10sp" />
 </LinearLayout>

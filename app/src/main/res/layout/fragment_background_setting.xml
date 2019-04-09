@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00ffffff"
-                android:maxLength="15"
+                android:maxLength="20"
                 android:singleLine="true"
                 android:textColor="#FF000000"
                 android:textSize="16sp" />
@@ -178,9 +178,9 @@
 
         <com.weipan.smk1.view.CustomCarGoodsCounterView
             android:id="@+id/et_num"
-            android:background="#ffe8edef"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#ffe8edef" />
 
     </LinearLayout>
 

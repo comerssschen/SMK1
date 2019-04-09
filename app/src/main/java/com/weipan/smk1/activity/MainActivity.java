@@ -59,6 +59,7 @@ import com.weipan.smk1.util.ResourcesUtils;
 import com.weipan.smk1.util.SharePreferenceUtil;
 import com.weipan.smk1.view.CloseConfirmDialog;
 import com.weipan.smk1.view.EditGoodsDialog;
+import com.weipan.smk1.view.LoadingDialog;
 import com.weipan.smk1.view.PayPopupWindow;
 import com.weipan.smk1.view.ScanQrCodeDialog;
 
@@ -100,6 +101,7 @@ public class MainActivity extends BaseActivity {
     private Gson gson = new Gson();
     private CloseConfirmDialog closeConfirmDialog;
     private CountDownHelper helper;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,8 +157,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
+        loadingDialog = new LoadingDialog(MainActivity.this, "支付中...");
         String memberNum = getIntent().getStringExtra("memberNum");
-        tvMemberId.setText(memberNum);
+        if (!ObjectUtils.isEmpty(memberNum)) {
+            tvMemberId.setText("会员ID： " + memberNum);
+        }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         goodsRecyclerview.setLayoutManager(linearLayoutManager);
         mAdapter = new CarAdapter(R.layout.car_item);
@@ -225,6 +230,7 @@ public class MainActivity extends BaseActivity {
         resultReceiver = new ResultReceiver(new ResultReceiver.ResultCallback() {
             @Override
             public void callback(String result) {
+                loadingDialog.dismiss();
                 Log.i("test", result);
 
                 if (ObjectUtils.isEmpty(result)) {
@@ -387,6 +393,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPart1() {
+                loadingDialog.show();
                 Request request = new Request();
                 // 应用类型
                 request.appType = "51";
@@ -483,6 +490,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void scanQRCode(String result) {
+        loadingDialog.show();
         ArgScanQRCode arg = new ArgScanQRCode();
         arg.setAuth_code(result);
         arg.setCash_id("100112053");
@@ -492,6 +500,7 @@ public class MainActivity extends BaseActivity {
         OkGoUtils.getInstance().postNoGateWay(MainActivity.this, gson.toJson(arg), "/api/pay/barcodepay", new OnResponseListener() {
             @Override
             public void onResponse(String serverRetData) {
+                loadingDialog.dismiss();
                 try {
                     ResultScanQRCode result = gson.fromJson(serverRetData, ResultScanQRCode.class);
                     doSuceess(ObjectUtils.equals(result.getPay_type(), "1") ? "微信扫码支付" : ObjectUtils.equals(result.getPay_type(), "2") ? "支付宝扫码支付" : "扫码支付");
@@ -503,6 +512,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onFail(String errMsg) {
+                loadingDialog.dismiss();
                 ToastUtils.showShort(errMsg);
             }
         });

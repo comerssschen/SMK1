@@ -47,7 +47,6 @@ public class StartActivity extends BaseActivity {
                 break;
             case R.id.tv_no_member:
                 startActivity("");
-
                 break;
             case R.id.tv_member:
                 KeyBoardDialogView keyBoardDialogView = new KeyBoardDialogView(StartActivity.this);
@@ -60,6 +59,8 @@ public class StartActivity extends BaseActivity {
                         keyBoardDialogView.dismiss();
                     }
                 });
+                break;
+            default:
                 break;
         }
     }

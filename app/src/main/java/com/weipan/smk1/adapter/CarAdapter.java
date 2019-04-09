@@ -19,7 +19,7 @@ public class CarAdapter extends BaseQuickAdapter<MenusBean, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, MenusBean info) {
         helper.setText(R.id.tv_name_item, info.getName());
-        helper.setText(R.id.tv_unit_item, info.getUnitPrice() + "/" + info.getUnit());
+        helper.setText(R.id.tv_unit_item, ObjectUtils.isEmpty(info.getUnit()) ? info.getUnitPrice() : info.getUnitPrice() + "/" + info.getUnit());
         helper.setText(R.id.tv_num_item, "* " + info.getCount());
         helper.setText(R.id.tv_money_item, info.getMoney());
 

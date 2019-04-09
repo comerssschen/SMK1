@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
             android:text="请录入会员信息"
             android:textColor="@color/title_color"
@@ -27,10 +28,12 @@
 
         <ImageView
             android:id="@+id/iv_dialog_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
-            android:paddingHorizontal="20dp"
+            android:layout_marginHorizontal="5dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
             android:src="@drawable/start_close" />
 
     </RelativeLayout>
@@ -39,11 +42,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="15dp"
         android:background="@drawable/common_backgroud_white_shape"
         android:orientation="vertical"
         android:paddingHorizontal="15dp"
-        android:paddingVertical="5dp">
+        android:paddingVertical="8dp">
 
 
         <EditText
@@ -54,6 +58,7 @@
             android:hint="请输入会员账号或会员绑定的手机号"
             android:inputType="number"
             android:maxLength="11"
+            android:textColor="@color/content_color"
             android:textSize="10sp" />
 
     </LinearLayout>
@@ -73,6 +78,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="1"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
         <TextView
@@ -85,6 +91,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="2"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
         <TextView
@@ -96,6 +103,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="3"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
     </LinearLayout>
@@ -116,6 +124,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="4"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
         <TextView
@@ -128,6 +137,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="5"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
         <TextView
@@ -139,6 +149,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="6"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
     </LinearLayout>
@@ -159,6 +170,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="7"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
         <TextView
@@ -171,6 +183,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="8"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
         <TextView
@@ -182,6 +195,7 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="9"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
     </LinearLayout>
@@ -203,7 +217,8 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="清空"
-            android:textSize="13sp" />
+            android:textColor="@color/title_color"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_0"
@@ -215,18 +230,29 @@
             android:gravity="center"
             android:paddingVertical="5dp"
             android:text="0"
+            android:textColor="@color/title_color"
             android:textSize="13sp" />
 
-        <ImageView
-            android:id="@+id/tv_delete"
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/common_backgroud_white_shape"
             android:gravity="center"
-            android:paddingVertical="5dp"
-            android:src="@drawable/start_delete"
-            android:text="9" />
+            android:orientation="horizontal"
+            android:paddingVertical="5dp">
+
+            <ImageView
+                android:id="@+id/tv_delete"
+                android:layout_width="18dp"
+                android:layout_height="12dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/start_delete" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
