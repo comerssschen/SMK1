@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="欢迎使用每日付自助购物"
+            android:text="欢迎使用湖北楷鸿自助购物"
             android:textColor="@color/title_color"
             android:textSize="18sp" />
 
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="由每日付提供技术支持"
+            android:text="由湖北楷鸿提供技术支持"
             android:textColor="#ccc"
             android:textSize="8sp" />
     </LinearLayout>
