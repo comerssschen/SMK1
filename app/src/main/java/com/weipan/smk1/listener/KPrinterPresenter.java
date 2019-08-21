@@ -55,7 +55,7 @@ public class KPrinterPresenter {
             mPrinter.setAlignMode(1);
             mPrinter.setFontZoom(fontsizeTitle, fontsizeTitle);
             mPrinter.sendRawData(boldOn());
-            mPrinter.printText("财联付收款明细");
+            mPrinter.printText(context.getResources().getString(R.string.print_title));
             mPrinter.flush();
             mPrinter.setAlignMode(0);
             mPrinter.setFontZoom(fontsizeContent, fontsizeContent);
@@ -79,7 +79,7 @@ public class KPrinterPresenter {
 //            mPrinter.printQrCode("https://sunmi.com/", 8, 0);
             mPrinter.lineWrap(1);
             mPrinter.setFontZoom(fontsizeContent, fontsizeContent);
-            mPrinter.printText("感谢使用财联付！");
+            mPrinter.printText(context.getResources().getString(R.string.print_bottom));
             mPrinter.flush();
             mPrinter.lineWrap(4);
             mPrinter.cutPaper(0, 0);

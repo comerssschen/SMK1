@@ -19,8 +19,8 @@
             android:src="@drawable/start_icon" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
             android:layout_margin="20dp"
             android:src="@drawable/start_logo_right" />
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="欢迎使用财联付自助购物"
+            android:text="@string/start_title"
             android:textColor="@color/title_color"
             android:textSize="18sp" />
 
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="由财联付提供技术支持"
+            android:text="@string/start_suport"
             android:textColor="#ccc"
             android:textSize="8sp" />
     </LinearLayout>
