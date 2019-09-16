@@ -1,10 +1,10 @@
 <resources>
 
-    <string name="app_name">刷呗自助购物系统</string>
-    <string name="print_title">刷呗收款明细</string>
-    <string name="print_bottom">感谢使用刷呗！</string>
-    <string name="start_title">欢迎使用刷呗自助购物</string>
-    <string name="start_suport">由刷呗提供技术支持</string>
+    <string name="app_name">财通天下自助购物系统</string>
+    <string name="print_title">财通天下收款明细</string>
+    <string name="print_bottom">感谢使用财通天下智慧收银</string>
+    <string name="start_title">欢迎使用财通天下自助购物</string>
+    <string name="start_suport">由大道同行财通天下（深圳）科技有限公司技术支持</string>
     <!--单位-->
     <string name="units_money">¥</string>
     <!--商品-->
